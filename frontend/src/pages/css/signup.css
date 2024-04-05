@@ -1,45 +1,63 @@
-.container {
-    display: flex;
-    justify-content: center; /* Centers the children horizontally */
-    align-items: center; /* Centers the children vertically */
-    min-height: 100vh; /* Ensures the container takes up at least the full height of the viewport */
-    padding: 20px;
-    gap: 20px; /* Adds some space between the image and the form */
-  }
-  
-  .signup-image {
-    max-width: 40%; /* Adjust based on your design needs */
-    height: auto; /* Maintain aspect ratio */
-    flex-shrink: 0; /* Prevents the image from shrinking if there's not enough space */
-  }
-  
-  .signup-container {
-    max-width: 600px;
-    width: 100%; /* Allows the form container to be flexible in width */
-    padding: 24px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    border-radius: 8px;
-    flex-shrink: 0; /* Prevents the form container from shrinking if there's not enough space */
-  }
-  
-  .signup-form {
-    max-width: 100%; /* Ensures the form does not exceed the width of its container */
-    padding: 40px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background: white;
-  }
-  
-  .signup-form .ant-form-item {
-    margin-bottom: 24px;
-  }
-  
-  .signup-form .ant-form-item-label > label {
-    color: #5c5c5c; /* Darker label color for contrast */
-  }
-  
-  .signup-form button {
-    width: 100%; /* Makes the button full width of the form */
-  }
-  
+/* signup.css */
+.centred-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  background: #f0f2f5; /* Optional background color */
+}
+
+.signup-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  margin: auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.signup-title {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  margin-right: 10vw;
+}
+
+.site-form-item-icon {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.signup-form {
+  max-width: 400px;
+}
+
+.signup-form-button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Enhance the look of the input fields */
+.ant-input-affix-wrapper:focus, .ant-input-affix-wrapper-focused {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.ant-input-affix-wrapper:hover {
+  border-color: #40a9ff;
+}
+
+/* Style for the Checkbox */
+.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+/* Link styling */
+a {
+  color: #40a9ff;
+}
+
+a:hover {
+  color: #1890ff;
+}

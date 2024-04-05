@@ -1,121 +1,141 @@
-import React, { useState } from "react";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Modal } from "antd";
+import React, { FormEvent } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-//import { useAuth } from "../components/auth";
-import "./css/login.css"; // Ensure you have an App.css file for custom styles
-import logoImage from "../assets/image.png"; // Adjust the path as necessary
-import photo from "../assets/InteliMed.AI.png"; // Adjust the path as necessary
+import "./css/login.css";
 
-interface loginValues {
-  username: string;
-  password: string;
-  remember: boolean;
+interface LoginValues {
+  username: string | null;
+  password: string | null;
+  remember: string | null;
 }
 
-const App: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const navigate = useNavigate();
-  // const auth= useAuth();
-  const onFinish = async (values: loginValues) => {
-    try {
-      console.log("Received values of form: ", values);
+const theme = createTheme();
 
+const SignIn: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const loginValues: LoginValues = {
+      username: formData.get("email") as string,
+      password: formData.get("password") as string,
+      remember: formData.get("remember") as string,
+    };
+
+    try {
       const response = await fetch("http://localhost:8001/api/users/login", {
         method: "POST",
-        credentials: "include", // Necessary for sessions/cookies to be sent
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(loginValues),
       });
 
-      const data = await response.json(); // Parse the JSON response body
+      const data = await response.json();
       if (response.ok) {
-        //console.log("Login successful");
-        //console.log("data",data);
-        console.log("data", data);
+        console.log("Login successful:", data);
         navigate("/home");
-        console.log("Navigated to home page");
       } else {
-        console.error("Login failed:", data.error); // Log the error from the response
-        setIsModalVisible(true); // Show modal or error message to the user
+        console.error("Login failed:", data.error);
+        // Handle login failure
       }
     } catch (error) {
-      console.error("Error during login:", error); // Log any network or unexpected errors
-      setIsModalVisible(true); // Show modal or error message to the user
+      console.error("Error during login:", error);
+      // Handle network or unexpected errors
     }
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false); // Hide the modal on confirmation
-  };
-
   return (
-    <div className="login-page">
-      <img src={photo} className="signup-image" alt="Descriptive Alt Text" />
-
-      <div className="login-container">
-        <div className="login-header">
-          <img src={logoImage} alt="InteliMed.AI Logo" className="login-logo" />
-          <h1>Welcome to InteliMed.AI</h1>
-        </div>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="username"
-            rules={[{ required: true, message: "Please input your Username!" }]}
+    <div className="centered-container">
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Email"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Login
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              Log in
-            </Button>
-            Or <a href="/signup">register now!</a>
-          </Form.Item>
-        </Form>
-
-        <Modal
-          title="Login Failed"
-          open={isModalVisible}
-          onOk={handleOk}
-          onCancel={handleOk}
-        >
-          <p>There was an issue logging in. Please try again.</p>
-        </Modal>
-      </div>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox name="remember" value="remember" color="primary" />
+                }
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Login
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
     </div>
   );
 };
 
-export default App;
+export default SignIn;
