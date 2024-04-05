@@ -1,0 +1,98 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: calc(100vh - 64px); /* Adjusting for header height */
+  /* background-color: #f0f0f0;*/
+  min-width: 99vw;
+}
+
+.content-wrapper {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Ensures responsiveness */
+  gap: 20px; /* Adds space between cards */
+}
+
+.image-card, .text-card {
+  flex: 1;
+  min-width: 300px; /* Minimum width for smaller screens */
+  max-width: 48%; /* Maximum width in large screens */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Modern shadow effect */
+  transition: 0.3s; /* Smooth transition for hover effect */
+}
+
+.image-card:hover, .text-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Enhanced shadow on hover */
+}
+
+.image-container {
+  width: 100%;
+  text-align: center;
+  border: 1px solid #f0f0f0; /* Light grey border */
+  padding: 10px;
+  height: 500px; /* Adjusted height to fit the larger image */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 500px; /* Default width for the image */
+  height: 500px; /* Default height for the image */
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ensure the image is fully visible and maintains aspect ratio */
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 0; /* Add padding to footer for spacing */
+
+}
+
+.text-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch; /* Stretch children to fill the card width */
+  padding: 20px;
+}
+
+.button-containers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-grow: 1; /* Make the container take up all available space */
+}
+
+.button-containers button {
+  margin: 10px 0; 
+}
+
+.button-containers div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.message {
+  text-align: center;
+  margin: 20px 0;
+}
+.button-containers div button:first-child {
+  margin-right: 0px; /* Adds 20px space between the True and False buttons */
+}
+
