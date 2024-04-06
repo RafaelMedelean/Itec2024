@@ -1,114 +1,87 @@
-import React, { useEffect, useState } from "react";
-import { Button, Form, Input, List, Row, Col } from "antd";
-import VirtualList from "rc-virtual-list";
-import "./css/twoimage.css"; // Ensure your CSS file path is correct
+//import * as React from 'react';
+import React, { useState, useEffect } from "react";
+import { Layout, Card, Button } from "antd";
+import CustomLineChart from '../components/CustomLineChart';
+import AppMenu from "../components/menu";
+import SidebarReact from "../components/SidebarReact";
+const { Header, Content, Footer } = Layout;
+import "./css/threeimage.css";
 import { useNavigate } from "react-router-dom";
-
-interface UserItem {
-  link: string;
-  stat: string;
-  username: string;
-}
-
-const ContainerHeight = 850;
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  // console.log("Three image page");
+  const [chartData, setChartData] = useState({ xAxis: [], yAxis: [] });
   const navigate = useNavigate();
+
   useEffect(() => {
     fetch("http://localhost:8001/api/users/current", {
       method: "POST",
-      credentials: "include", // Necessary for sessions/cookies to be sent
+      credentials: "include", 
     })
       .then((response) => {
-        if (response.ok) {
+        if (response.ok) 
+        {
           return response.json();
         }
         throw new Error("Not authenticated on Home page");
       })
-      .then((data) => {
+      .then((data) => 
+      {
         if (!data.user) {
           throw new Error("Not authenticated");
         }
-        setIsLoading(false); // User is authenticated
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Authentication check failed:", error);
         navigate("/login");
       });
+
+      const fetchData = async () => {
+        try {
+          const response = await fetch("https://myendpoint.free.beeceptor.com/graph");
+          const yAxisData = await response.json(); // Assuming this directly returns the yAxis array
+          console.log('Received yAxisData:', yAxisData);
+          // Generate xAxis array based on the length of yAxisData
+          const xAxisData = yAxisData.map((_, index) => index);
+          
+          // Update chartData state with both xAxis and yAxis
+          setChartData({
+            xAxis: xAxisData,
+            yAxis: yAxisData,
+          });
+        } catch (error) {
+          console.error("Failed to fetch chart data:", error);
+        }
+      };
+      
+
+      fetchData();
+
   }, [isLoading, navigate]);
 
-  const [form] = Form.useForm();
-  const [data, setData] = useState<UserItem[]>([]);
-
-  const appendData = () => {
-    fetch("http://localhost:8001/api/endpoints/getData", {
-        method: "GET",
-        credentials: "include", // Necessary for sessions/cookies to be sent
-      }) // Update this URL to your actual backend endpoint
-      .then((res) => res.json())
-      .then((body) => {
-        console.log(body);
-        setData(data.concat(body)); // Assuming the body directly contains an array of UserItem objects
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  };
-
-  useEffect(() => {
-    appendData();
-  }, []);
-
-  const onScroll = (e: React.UIEvent<HTMLElement, UIEvent>) => {
-    if (
-      e.currentTarget.scrollHeight -
-        e.currentTarget.scrollTop -
-        ContainerHeight <=
-      1
-    ) {
-      appendData();
-    }
-  };
-
   return (
-    <Row gutter={16} className="container-row">
-      <Col span={24} md={15} className="list-container">
-        <List>
-          <VirtualList
-            data={data}
-            height={ContainerHeight}
-            itemHeight={47}
-            itemKey="link" // Using 'link' as a unique identifier for each item
-            onScroll={onScroll}
-          >
-            {(item: UserItem) => (
-              <List.Item key={item.link}>
-                <List.Item.Meta
-                  title={<a href={item.stat}>{item.username}</a>}
-                  description={` ${item.link}`}
-                />
-                <div>{item.stat}</div>
-              </List.Item>
-            )}
-          </VirtualList>
-        </List>
-      </Col>
-      <Col span={24} md={9} className="form-container">
-        <Form form={form} layout="vertical" className="centered-container">
-          <Form.Item label="URL">
-            <Input size="large" placeholder="https://example.com" />
-          </Form.Item>
-          <Form.Item label="Endpoint">
-            <Input size="large" placeholder="/settings" />
-          </Form.Item>
-          <Form.Item>
-            <Button size="large" type="primary">
-              Add Endpoint
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+    <>
+      <AppMenu />
+      <Layout className="layout">
+        <Header>
+          <div className="logo" />
+        </Header>
+        <Content className="content">
+          <div className="content-wrapper">
+            <Card className="image-card">
+              <SidebarReact role={'user'}/>
+            </Card>
+            <Card className="text-card">
+              <CustomLineChart data={chartData} />
+            </Card>
+          </div>
+        </Content>
+        <Footer className="footer">
+          InteliMed.AI ©{new Date().getFullYear()} Created by InteliMed.AI
+        </Footer>
+      </Layout>
+    </>
   );
 };
 

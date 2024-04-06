@@ -2,6 +2,7 @@ sdb/ImageRetrievalVest/test_files
 backend/node_modules
 backend/public
 frontend/node_modules
+node_modules
 sdb/ImageRetrievalVest/test_files
 sdb/ImageRetrievalVest/tensorboard
 sdb/ImageRetrievalVest/saving_models/Densenet169_bigger_smaller_csv_test
