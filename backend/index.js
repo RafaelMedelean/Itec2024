@@ -3,10 +3,11 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './src/config/db.js';
 import userRoutes from './src/routes/userRoutes.js';
-import aplicationRoutes from './src/routes/aplicationRoutes.js';
+import aplicationRoutes from './src/routes/AplicationRoutes.js';
 import passport from 'passport';
 import session from 'express-session';
 import initializePassport from './src/config/passportConfig.js';
+// import { startPeriodicChecks } from './src/config/periodicTask.js'
 const app = express();
 const PORT = process.env.PORT || 8001;
 const corsOptions = {
@@ -45,8 +46,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/aplication', aplicationRoutes);
 
 const startServer = async () => {
-    await connectDB(); // Connect to the database
-    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-};
-
+    await connectDB();  // Conectarea la baza de date
+    //startPeriodicChecks();  // Pornirea sarcinilor periodice
+    app.listen(PORT, () => console.log(`Serverul rulează pe portul ${PORT}`));
+  };
 startServer();

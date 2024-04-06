@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import '../config/passportConfig.js';
+import { startPeriodicChecks } from '../config/periodicTask.js';
 export const signupUser = async (req, res) => {
     try {
         const { username, password, email,isDeveloper} = req.body;
@@ -46,9 +47,11 @@ export const loginUser = async (req, res, next) => {
       return res.status(400).json({ message: info.message });
     }
     req.logIn(user, (err) => {
-      if (err) return next(err);
+      if (err){ return next(err);
+      }else{
+      startPeriodicChecks();
       return res.status(200).json({ message: 'Logged in successfully' });
-    });
+  }});
   })(req, res, next);
 };
 

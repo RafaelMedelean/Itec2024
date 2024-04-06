@@ -59,7 +59,7 @@ export const getAplication = async (req, res) => {
         if (!applications || applications.length === 0) {
             return res.status(404).json({ message: 'No applications found for the user' });
         }
-    console.log(applications);
+    // console.log(applications);
         // Extract the links from the applications and send them as an array
         const applicationLinks = applications.map(application => application.link);
         res.status(200).json(applicationLinks);
@@ -73,24 +73,25 @@ export const addEndpoint = async (req, res) => {
     try {
         if (req.isAuthenticated() && req.user) {
             console.log('Authenticated username:', req.user.username);
-
+            console.log('Request body:', req.body.applicationLink);
             // Constructing the object to be added to the endpoints array
+     
             const endpointData = {
                 endpoint: req.body.endpoint, // Use just the endpoint part as the link
                 stat: 'Stable', // Assuming default stat
-                history: [200, 400, 200, 200, 200, 400, 500, 200] // Assuming an initial history array
+                history: [] // Assuming an initial history array
             };
 
             // Find the application by its link
             const application = await Aplication.findOne({ link: req.body.applicationLink });
-
+            // console.log("appfound:"+ application);
             if (!application) {
                 return res.status(404).json({ message: 'Application not found' });
             }
 
             // Check if the endpoint already exists in the application
-            const endpointExists= 0;
-            // const endpointExists = application.endpoints.some(endpoint => endpoint.link === endpointData.link);
+          //  const endpointExists= 0;
+             const endpointExists = application.endpoints.some(endpoint => endpoint.link === endpointData.endpoint);
 
             if (endpointExists) {
                 return res.status(409).json({ message: 'Endpoint already exists in this application' });
@@ -101,7 +102,7 @@ export const addEndpoint = async (req, res) => {
 
             // Save the updated application document
             await application.save();
-
+// console.log("app:"+application);
             res.status(201).json({ message: 'Endpoint added successfully', application });
         } else {
             console.log('User is not authenticated or req.user is undefined');
@@ -110,5 +111,23 @@ export const addEndpoint = async (req, res) => {
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ message: error.message }); // Use 500 for server errors
+    }
+};
+
+export const getAplicationall = async (req, res) => {
+    try {
+        console.log('Authenticated username:', req.user.username);
+        // Find all applications where the current user is listed in the developers array
+        const applications = await Aplication.find({ developers: req.user.username });
+
+        if (!applications || applications.length === 0) {
+            return res.status(404).json({ message: 'No applications found for the user' });
+        }
+
+        // Send the entire applications including their endpoints
+        res.status(200).json(applications);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: error.message });
     }
 };

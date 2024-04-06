@@ -46,7 +46,7 @@ const App: React.FC = () => {
               <LinkEndpointForm />
             </Card>
             <Card className="text-card">
-              {/* <AplicationList/> */}
+              <AplicationList/>
             </Card>
           </div>
         </Content>
