@@ -37,7 +37,7 @@ const AppMenu: React.FC = () => {
         <div
           style={{ marginRight: "30px", fontWeight: "bold", fontSize: "20px" }}
         >
-          InteliMed.AI
+          Itec.Monitor
         </div>
 
         <div

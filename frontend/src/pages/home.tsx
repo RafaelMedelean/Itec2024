@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Menu from "../components/menu";
 import { useNavigate } from "react-router-dom";
+
+import * as THREE from 'three'
+import { Canvas, useFrame } from '@react-three/fiber'
+
+import { ComputersCanvas } from "../components/canvas";
 
 const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,8 +40,10 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <Menu />
-      <h1>Welcome to the Home page!</h1>
+      < Menu />
+      <section className="relative mx-auto" style={{ backgroundImage: 'url(herobg.png)', width: '100vw', height: '100vh', margin: 0, padding: 0 }}> 
+      <ComputersCanvas />
+      </section>
     </div>
   );
 };
