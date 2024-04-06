@@ -8,7 +8,7 @@ const endpointSchema = new Schema({
   });
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String, requirred: true },
     email: { type: String, required: true, unique: true },
     isDeveloper: { type: Boolean, required: false, default: false },
     endpoints: [endpointSchema]

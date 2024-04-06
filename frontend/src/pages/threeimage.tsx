@@ -5,7 +5,7 @@ const { Header, Content, Footer } = Layout;
 import "./css/threeimage.css"; // Importing external CSS
 import { useNavigate } from "react-router-dom";
 import LinkEndpointForm from "../components/formlink"; // Ensure this is the correct path
-
+import AplicationList from "../components/AplicationList"; // Ensure this is the correct path
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   // console.log("Three image page");
@@ -46,30 +46,7 @@ const App: React.FC = () => {
               <LinkEndpointForm />
             </Card>
             <Card className="text-card">
-              <div className="button-containers">
-                <p
-                  style={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  Is this a nodule?
-                </p>
-
-                <div>
-                  <Button type="primary" size="large">
-                    True
-                  </Button>
-                  <Button type="primary" size="large">
-                    False
-                  </Button>
-                </div>
-
-                <Button type="primary" size="large">
-                  Submit
-                </Button>
-              </div>
+              {/* <AplicationList/> */}
             </Card>
           </div>
         </Content>
