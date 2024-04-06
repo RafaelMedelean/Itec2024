@@ -32,16 +32,15 @@ const ApplicationForm = ({ onAddApplication }) => (
 
 const LinkEndpointForm = () => {
   const [dropdownData, setDropdownData] = useState<string[]>([]);
-  const [selectedApplication, setSelectedApplication] = useState<
-    string | undefined
-  >();
+
+  const [selectedApplication, setSelectedApplication] = useState<string | undefined>();
+
   const showMessage = useMessage();
   const navigate = useNavigate();
   useEffect(() => {
-    // Fetching dropdown data for the applications
     const fetchDropdownData = async () => {
-      const dropdownDataUrl =
-        "http://localhost:8001/api/aplication/getAplication"; // Ensure the correct endpoint
+      const dropdownDataUrl = "http://localhost:8001/api/aplication/getAplication"; 
+
       try {
         const response = await fetch(dropdownDataUrl, {
           method: "GET",
@@ -49,7 +48,7 @@ const LinkEndpointForm = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          setDropdownData(data); // Assuming the response is an array of strings
+          setDropdownData(data);
         } else {
           console.error("Failed to fetch dropdown data:", response.statusText);
         }
