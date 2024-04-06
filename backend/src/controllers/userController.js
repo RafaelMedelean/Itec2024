@@ -4,10 +4,11 @@ import bcrypt from 'bcryptjs';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import '../config/passportConfig.js';
+import { startPeriodicChecks } from '../config/periodicTask.js';
 export const signupUser = async (req, res) => {
     try {
-        const { username, password, email } = req.body;
-
+        const { username, password, email,isDeveloper} = req.body;
+        console.log("dev="+isDeveloper);
         if (!(username && password && email)) {
             return res.status(400).json({ error: 'Username, password, and email are required' });
         }
@@ -22,7 +23,8 @@ export const signupUser = async (req, res) => {
         const newUser = new User({
             username,
             password: hashedPassword,
-            email
+            email,
+            isDeveloper:isDeveloper
         });
 
         await newUser.save();
@@ -45,9 +47,11 @@ export const loginUser = async (req, res, next) => {
       return res.status(400).json({ message: info.message });
     }
     req.logIn(user, (err) => {
-      if (err) return next(err);
+      if (err){ return next(err);
+      }else{
+      startPeriodicChecks();
       return res.status(200).json({ message: 'Logged in successfully' });
-    });
+  }});
   })(req, res, next);
 };
 

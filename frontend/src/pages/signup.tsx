@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Checkbox, Form, Input, Typography } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ export default function SignUp() {
     try {
       const response = await fetch("http://localhost:8001/api/users/signup", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

@@ -36,14 +36,19 @@ export default function initializePassport(passport) {
     });
 
     passport.deserializeUser(async (id, done) => {
+        //console.log('deserialize');
+       // console.log(id);
         try {
-            const user = await User.findById(id);
-            done(null, user);
+            const user = await User.findById(id);  // Assuming `User` is your Mongoose model
+          //  console.log(user); 
+            done(null, user);  // `user` will be attached to `req.user` in routes
         } catch (err) {
-            done(err);
+            done(err);  // Pass any errors to Passport
         }
     });
     
+ 
+      
     
 
 }

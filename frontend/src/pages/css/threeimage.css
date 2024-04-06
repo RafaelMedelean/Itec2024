@@ -33,10 +33,12 @@
 }
 
 .image-card:hover, .text-card:hover {
+  margin-top: 100px
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Enhanced shadow on hover */
 }
 
 .image-container {
+  margin-top: 300px;
   width: 100%;
   text-align: center;
   border: 1px solid #f0f0f0; /* Light grey border */
