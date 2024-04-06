@@ -1,6 +1,19 @@
 import axios from 'axios';
 import Aplication from '../models/aplication.js';
 
+const statusToValue = (status) => {
+  switch (status) {
+    case 'Stable':
+      return 2;
+    case 'Unstable':
+      return 1;
+    case 'Down':
+      return 0;
+    default:
+      return -1;  // În cazul în care se întâlnește un status necunoscut
+  }
+};
+
 const checkApplications = async () => {
   console.log("Verificarea aplicațiilor...");
 
@@ -35,6 +48,15 @@ const checkApplications = async () => {
         }
 
         endpoint.stat = evaluateEndpointStatus(endpoint.history);
+  // Evaluarea statusului endpoint-ului și actualizarea array-ului states
+  const currentState = evaluateEndpointStatus(endpoint.history);
+  endpoint.stat = currentState;
+  endpoint.states.push(statusToValue(currentState)); // Adăugarea statusului curent la states
+
+  // Limităm array-ul states la ultimele 20 de înregistrări
+  if (endpoint.states.length > 20) {
+    endpoint.states = endpoint.states.slice(-20);
+  }
 
         // Contorizăm statusul endpoint-urilor pentru a determina statusul aplicației
         if (endpoint.stat === 'Stable') {

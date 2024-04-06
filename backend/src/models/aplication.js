@@ -10,7 +10,8 @@ const timeCode =new Schema({
 const endpointSchema = new Schema({
     endpoint: { type: String, required: true },
     stat: { type: String, default: 'Stable' },
-    history: [timeCode]
+    history: [timeCode],
+    states:[String]
   });
 
 const schemaAplication = new Schema({
