@@ -8,6 +8,7 @@ import "./css/dashboard.css";
 import AplicationList from "../components/AplicationList";
 import LinkEndpointForm from "../components/formlink";
 import SolveBug from "../components/SolveBug";
+import AplicationListUsers from "../components/AplicationListUsers";
 const { Header, Content, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -26,18 +27,18 @@ function getItem(
     type,
   } as MenuItem;
 }
-const role = "developer";
-const items: MenuItem[] = [
-  getItem(<Link to="/dashboard/option1">Add Aplication</Link>, "1"),
-  getItem(<Link to="/dashboard/option2">See List</Link>, "2"),
-  role === "developer"
-    ? getItem(<Link to="/dashboard/option3">Solve a Bug</Link>, "3")
-    : getItem(<Link to="/dashboard/option3">Report a bug</Link>, "3"),
-]; // Conditionally adding the "Report a bug" option
 
 const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const [role, setRole] = useState("");
+  const items: MenuItem[] = [
+    getItem(<Link to="/dashboard/option1">Add Aplication</Link>, "1"),
+    getItem(<Link to="/dashboard/option2">See List</Link>, "2"),
+    role === true
+      ? getItem(<Link to="/dashboard/option3">Solve a Bug</Link>, "3")
+      : getItem(<Link to="/dashboard/option3">Report a bug</Link>, "3"),
+  ]; // Conditionally adding the "Report a bug" option
 
   useEffect(() => {
     fetch("http://localhost:8001/api/users/current", {
@@ -54,6 +55,10 @@ const Dashboard: React.FC = () => {
         if (!data.user) {
           throw new Error("Not authenticated");
         }
+        // console.log  (data.user);
+        // console.log("userData" + data.user.isDeveloper);
+        setRole(data.user.isDeveloper);
+        // console.log("rol" + role, role === true);
         setIsLoading(false); // User is authenticated
       })
       .catch((error) => {
@@ -110,12 +115,12 @@ const Dashboard: React.FC = () => {
             {params.panel === "option2" && (
               <div>
                 <div style={{ width: "40vw", minHeight: "100vh" }}>
-                  <AplicationList />
+                  {role === true ? <AplicationList /> : <AplicationListUsers />}
                 </div>
               </div>
             )}
             {params.panel === "option3" && (
-              <div> {role === "developer" ? <SolveBug /> : <ReportBug />} </div>
+              <div> {role === true ? <SolveBug /> : <ReportBug />} </div>
             )}
           </Content>
         </Layout>

@@ -27,7 +27,8 @@ export const sendAplication = async (req, res) => {
                     developers: [req.user.username], // Adding the current user's username to the developers array
                     link: req.body.link, // Setting the application link from the request body
                     status: 'Stable', // Default status
-                    endpoints: [] // Assuming no endpoints to start with
+                    endpoints: [] ,// Assuming no endpoints to start with
+                    bug: false
                 };
                 
                 // Creating a new application document
@@ -129,5 +130,66 @@ export const getAplicationall = async (req, res) => {
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ message: error.message });
+    }
+};
+
+export const getAplicationallNoLogin = async (req, res) => {
+    try {
+        console.log('Authenticated username:', req.user.username);
+        // Find all applications where the current user is listed in the developers array
+        const applications = await Aplication.find();
+
+        if (!applications || applications.length === 0) {
+            return res.status(404).json({ message: 'No applications found for the user' });
+        }
+
+        // Send the entire applications including their endpoints
+        res.status(200).json(applications);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+export const sendBugReport = async (req, res) => {
+    const { application, details } = req.body;
+
+    if (!application || !details) {
+        return res.status(400).json({ message: 'Application link and bug details are required' });
+    }
+
+    try {
+        // Find the application by its link
+        const applicationlink = await Aplication.findOne({ link: application });
+
+        if (!applicationlink) {
+            return res.status(404).json({ message: 'Application not found' });
+        }
+
+        // Set the application's hasBug field to true
+        applicationlink.bug = true;
+
+        // Save the updated application document to the database
+        console.log("appbefore:"+applicationlink);
+        await applicationlink.save();
+        console.log("app:"+applicationlink);
+
+        // Optionally, you might want to add the bug report details to the application document
+        // For example, if you have an array field for bug reports
+        // applicationlink.bugReports = applicationlink.bugReports || [];
+        // applicationlink.bugReports.push({
+        //     details,
+        //     reportedAt: new Date(), // Timestamp when the bug was reported
+        //     reportedBy: req.user.username, // Assuming the user's username is available in req.user
+        // });
+
+        // Save the updated application document with bug report details
+        // await applicationlink.save();
+
+        // Respond to the request indicating the bug report was successfully handled
+        res.status(200).json({ message: 'Bug report sent successfully and application marked with a bug' });
+    } catch (error) {
+        console.error('Error sending bug report:', error);
+        res.status(500).json({ message: 'Server error while processing bug report' });
     }
 };

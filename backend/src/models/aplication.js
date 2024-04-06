@@ -1,6 +1,5 @@
 
-import { Schema } from "mongoose";
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const timeCode =new Schema({
     time: { type: String },
@@ -18,7 +17,9 @@ const schemaAplication = new Schema({
     developers: [String],
     link: { type: String },
     status: { type: String, default: 'Stable' },
-    endpoints: [endpointSchema]
+    endpoints: [endpointSchema],
+    bug: { type: Boolean, default: false}
+
   });
 
 

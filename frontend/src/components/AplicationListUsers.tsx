@@ -6,12 +6,12 @@ import CustomLineChart from "./CustomLineChart";
 
 const ContainerHeight = 650;
 
-const AplicationList = () => {
+const AplicationListUsers = () => {
   const [selectedEndpoint, setSelectedEndpoint] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const userDataUrl = "http://localhost:8001/api/aplication/getAplicationall";
+  const userDataUrl = "http://localhost:8001/api/aplication/getAplicationallNoLogin";
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -94,4 +94,4 @@ const AplicationList = () => {
   );
 };
 
-export default AplicationList;
+export default AplicationListUsers;
