@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './src/config/db.js';
 import userRoutes from './src/routes/userRoutes.js';
+import endpointRoutes from './src/routes/endpointsRoutes.js';
 import passport from 'passport';
 import session from 'express-session';
 import initializePassport from './src/config/passportConfig.js';
@@ -23,7 +24,7 @@ app.use(
     session({
         secret: 'secret',  // Alegeți un secret real pentru producție
         resave: false,  // De obicei setat la false pentru magazine de sesiuni bazate pe store
-        saveUninitialized: false,  // Nu salvați sesiuni neinițializate
+       saveUninitialized: false,  // Nu salvați sesiuni neinițializate
         cookie: {
             httpOnly: true,  // Îmbunătățiți securitatea prin setarea cookie-urilor ca HttpOnly
             secure: false,  // Setat la true dacă sunteți în HTTPS
@@ -41,6 +42,7 @@ app.use('/public', express.static('public'));
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/endpoints', endpointRoutes);
 
 const startServer = async () => {
     await connectDB(); // Connect to the database

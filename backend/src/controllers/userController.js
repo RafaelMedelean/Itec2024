@@ -6,8 +6,8 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import '../config/passportConfig.js';
 export const signupUser = async (req, res) => {
     try {
-        const { username, password, email } = req.body;
-
+        const { username, password, email,isDeveloper} = req.body;
+        console.log("dev="+isDeveloper);
         if (!(username && password && email)) {
             return res.status(400).json({ error: 'Username, password, and email are required' });
         }
@@ -22,7 +22,8 @@ export const signupUser = async (req, res) => {
         const newUser = new User({
             username,
             password: hashedPassword,
-            email
+            email,
+            isDeveloper:isDeveloper
         });
 
         await newUser.save();
