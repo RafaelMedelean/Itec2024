@@ -30,13 +30,13 @@ const checkApplications = async () => {
         try {
           const response = await axios.get(app.link+endpoint.endpoint);
           endpoint.history.push({
-            time: new Date().toISOString(),
+            time: new Date().toLocaleTimeString(),
             code: response.status,
           });
          // console.log("coderesponsestart"+response.status);
         } catch (error) {
           endpoint.history.push({
-            time: new Date().toISOString(),
+            time: new Date().toLocaleTimeString(),
             code: error.response ? error.response.status : 500,
           });
         }
@@ -85,6 +85,6 @@ const evaluateEndpointStatus = (history) => {
 };
 
 export const startPeriodicChecks = () => {
-  const interval = 20;  // Intervalul de timp în secunde
+  const interval = 20000;  // Intervalul de timp în secunde
   setInterval(checkApplications, interval * 1000);
 };

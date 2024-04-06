@@ -11,7 +11,7 @@ const endpointSchema = new Schema({
     endpoint: { type: String, required: true },
     stat: { type: String, default: 'Stable' },
     history: [timeCode],
-    states:[String]
+    states:[Number]
   });
 
 const schemaAplication = new Schema({

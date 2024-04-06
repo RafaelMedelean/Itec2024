@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Layout, Card, Button } from "antd";
-import AppMenu from "../components/menu";
-const { Header, Content, Footer } = Layout;
-import "./css/threeimage.css"; // Importing external CSS
+import { Card, Layout } from "antd";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LinkEndpointForm from "../components/formlink"; // Ensure this is the correct path
 import AplicationList from "../components/AplicationList"; // Ensure this is the correct path
+import LinkEndpointForm from "../components/formlink"; // Ensure this is the correct path
+import AppMenu from "../components/menu";
+import "./css/threeimage.css"; // Importing external CSS
+const { Header, Content, Footer } = Layout;
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   // console.log("Three image page");
@@ -46,7 +46,7 @@ const App: React.FC = () => {
               <LinkEndpointForm />
             </Card>
             <Card className="text-card">
-              <AplicationList/>
+              <AplicationList />
             </Card>
           </div>
         </Content>

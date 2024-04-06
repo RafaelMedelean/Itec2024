@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { List, Row, Col } from "antd";
+import { Col, List, Row } from "antd";
 import VirtualList from "rc-virtual-list";
+import { useEffect, useState } from "react";
 import "./aplicationList.css";
+import CustomLineChart from "./CustomLineChart";
 
 const ContainerHeight = 500;
 
 const AplicationList = () => {
+  const [selectedEndpoint, setSelectedEndpoint] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -33,6 +35,10 @@ const AplicationList = () => {
     fetchUserData();
   }, []);
 
+  useEffect(() => {
+    console.log({ selectedEndpoint });
+  }, [selectedEndpoint]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -59,8 +65,11 @@ const AplicationList = () => {
                     size="small"
                     dataSource={application.endpoints}
                     renderItem={(endpoint) => (
-                      <List.Item key={endpoint.endpoint}>
-                        {endpoint.endpoint} - {endpoint.stat}
+                      <List.Item
+                        key={endpoint.endpoint}
+                        onClick={() => setSelectedEndpoint(endpoint)}
+                      >
+                        {endpoint.endpoint} - {endpoint.stat} eee
                       </List.Item>
                     )}
                   />
@@ -70,6 +79,17 @@ const AplicationList = () => {
           </VirtualList>
         </List>
       </Col>
+
+      {selectedEndpoint && (
+        <Col span={12}>
+          <CustomLineChart
+            data={selectedEndpoint.states.map((h, index) => ({
+              code: h,
+              time: selectedEndpoint.history[index].time,
+            }))}
+          />
+        </Col>
+      )}
     </Row>
   );
 };
