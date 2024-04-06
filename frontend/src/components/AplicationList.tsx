@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { List, Row, Col } from "antd";
 import VirtualList from "rc-virtual-list";
- import "./aplicationList.css"; // Ensure your CSS file path is correct
+import "./aplicationList.css";
 
-const ContainerHeight = 850;
+const ContainerHeight = 500;
 
 const AplicationList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  // Hardcoded URL for user data fetching
-  const userDataUrl = "http://localhost:8001/api/endpoints/getData";
+  const userDataUrl = "http://localhost:8001/api/aplication/getAplicationall";
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -22,8 +21,8 @@ const AplicationList = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const users = await response.json();
-        setData(users);
+        const applications = await response.json();
+        setData(applications);
         setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
@@ -32,9 +31,7 @@ const AplicationList = () => {
     };
 
     fetchUserData();
-  }, []); // Empty dependency array to run only once on component mount
-
-  
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -48,16 +45,26 @@ const AplicationList = () => {
             data={data}
             height={ContainerHeight}
             itemHeight={47}
-            itemKey="link" // Adjust according to your data structure
-            // onScroll={onScroll}
+            itemKey="link"
           >
-            {(item) => (
-              <List.Item key={item.link}>
+            {(application) => (
+              <List.Item key={application.link}>
                 <List.Item.Meta
-                  title={<a href={item.stat}>{item.username}</a>}
-                  description={item.link}
+                  title={<a href={application.link}>{application.link}</a>}
+                  description={`Status: ${application.status}`}
                 />
-                <div>{item.stat}</div>
+                <div>
+                  Endpoints:
+                  <List
+                    size="small"
+                    dataSource={application.endpoints}
+                    renderItem={(endpoint) => (
+                      <List.Item key={endpoint.endpoint}>
+                        {endpoint.endpoint} - {endpoint.stat}
+                      </List.Item>
+                    )}
+                  />
+                </div>
               </List.Item>
             )}
           </VirtualList>
