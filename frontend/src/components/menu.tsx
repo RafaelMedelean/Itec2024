@@ -1,7 +1,7 @@
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Layout, Menu, MenuProps, Popover, Switch } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Layout, Menu, Switch, Avatar, MenuProps, Popover } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import Logo from "../assets/pngpng.png"; // Adjust the path as necessary
 
 const { Header } = Layout;
@@ -74,16 +74,20 @@ const AppMenu: React.FC = () => {
         }}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
+          <a href="/">
           <img
             src={Logo}
             alt="Logo"
+           
             style={{
               width: "50px",
               height: "50px",
               marginRight: "40px",
               marginLeft: "30px",
+              marginTop: "10px",
             }}
           />
+          </a>
           <div style={{ color: "white", fontWeight: "bold" }}>Itec.Monitor</div>
         </div>
         <Menu

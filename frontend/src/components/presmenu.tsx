@@ -22,6 +22,10 @@ const AppMenu: React.FC = () => {
     navigate("/signup"); // Navigate to /signup
   };
 
+
+  const handleDashBoardClick = () => {
+    navigate("/dashboard"); // Navigate to /signup
+  };
   const handleLoginClick = () => {
     navigate("/login"); // Navigate to /login
   };
@@ -47,6 +51,13 @@ const AppMenu: React.FC = () => {
         <div
           style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
         >
+           <Button
+            type="primary"
+            style={{ marginLeft: "10px" }}
+            onClick={handleDashBoardClick}
+          >
+            Dashboard
+          </Button>
           <Button type="primary"
                   style={{ marginLeft: "10px" }}
                   onClick={handleLoginClick}>

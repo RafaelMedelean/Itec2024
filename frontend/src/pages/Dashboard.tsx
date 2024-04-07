@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
       })
       .catch((error) => {
         console.error("Authentication check failed:", error);
-        navigate("/login");
+        // navigate("/login");
       });
   }, [navigate]);
   const {
