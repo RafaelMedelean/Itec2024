@@ -75,14 +75,14 @@ const SignIn: React.FC = () => {
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" style={{ color: 'white' }}>
               Login
             </Typography>
             <Box
               component="form"
               onSubmit={handleSubmit}
               noValidate
-              sx={{ mt: 1 }}
+              sx={{ mt: 1, color: "white"}}
             >
               <TextField
                 margin="normal"
@@ -93,6 +93,12 @@ const SignIn: React.FC = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                InputLabelProps={{
+                  style: { color: 'white' }
+                }}
+                InputProps={{
+                  style: { color: 'white' }
+                }}
               />
               <TextField
                 margin="normal"
@@ -103,18 +109,25 @@ const SignIn: React.FC = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                InputLabelProps={{
+                  style: { color: 'white' }
+                }}
+                InputProps={{
+                  style: { color: 'white' }
+                }}
               />
               <FormControlLabel
                 control={
                   <Checkbox name="remember" value="remember" color="primary" />
                 }
                 label="Remember me"
+                sx={{ color: 'white' }}
               />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, color: 'white' }}
               >
                 Login
               </Button>

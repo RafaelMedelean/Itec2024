@@ -12,6 +12,7 @@ import TwoImage from "./pages/twoimages";
 import { AuthProvider } from "./components/auth";
 import Dashboard from "./pages/Dashboard";
 
+
 const App: React.FC = () => (
   <AuthProvider>
     <ConfigProvider

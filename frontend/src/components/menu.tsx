@@ -84,7 +84,7 @@ const AppMenu: React.FC = () => {
               marginLeft: "30px",
             }}
           />
-          <div style={{ color: "white", fontWeight: "bold" }}>InteliMed.Ai</div>
+          <div style={{ color: "white", fontWeight: "bold" }}>Itec.Monitor</div>
         </div>
         <Menu
           theme="dark"
