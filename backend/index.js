@@ -7,6 +7,7 @@ import aplicationRoutes from './src/routes/AplicationRoutes.js';
 import passport from 'passport';
 import session from 'express-session';
 import initializePassport from './src/config/passportConfig.js';
+import dashboardRoutes from './src/routes/dashboardRoutes.js';
 // import { startPeriodicChecks } from './src/config/periodicTask.js'
 const app = express();
 const PORT = process.env.PORT || 8001;
@@ -44,7 +45,7 @@ app.use('/public', express.static('public'));
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/aplication', aplicationRoutes);
-
+app.use('/dashboard',dashboardRoutes);
 const startServer = async () => {
     await connectDB();  // Conectarea la baza de date
     //startPeriodicChecks();  // Pornirea sarcinilor periodice

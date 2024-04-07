@@ -1,0 +1,40 @@
+/* aplicationList.css */
+body{
+    overflow-y: hidden;
+}
+.container-row {
+    display: flex;
+    justify-content: space-between; /* Asigură distribuirea spațiului între elemente */
+    gap: 30px; /* Spațiu între containere */
+    min-width: 80vw;
+    margin: 20px auto; /* Centrare orizontală și spațiu suplimentar vertical */
+  }
+  
+  .list-container, .graph-container {
+    flex: 1; /* Fiecare container va ocupa un spațiu egal */
+    padding: 20px;
+    background-color: #ededed;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+  }
+  
+  .list-container:hover, .graph-container:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .list-container .ant-list-item {
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .list-container .ant-list-item:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .graph-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

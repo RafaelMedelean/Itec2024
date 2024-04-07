@@ -14,10 +14,13 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
+    "@mui/x-charts": "^7.1.1",
     "antd": "^5.15.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.2"
+    "react-pro-sidebar": "^1.1.0",
+    "react-router-dom": "^6.22.2",
+    "recharts": "^2.12.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
