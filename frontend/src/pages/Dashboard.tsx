@@ -61,6 +61,8 @@ const Dashboard: React.FC = () => {
         // console.log  (data.user);
         // console.log("userData" + data.user.isDeveloper);
         // console.log("userData" + data.user.isDeveloper);
+        data.user.isDeveloper === true ? Notif() : "";
+        // console.log("userData====" + data.user.isDeveloper);
         setRole(data.user.isDeveloper);
         // console.log("rol" + role, role === true);
         setIsLoading(false); // User is authenticated
@@ -69,7 +71,6 @@ const Dashboard: React.FC = () => {
         console.error("Authentication check failed:", error);
         navigate("/login");
       });
-      // role===true ? Notif() : "";
   }, [navigate]);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -89,7 +90,7 @@ const Dashboard: React.FC = () => {
         />
       </Header>
       <Layout>
-        <Sider width={200} style={{ backgroundColor: "gray" }}>
+        <Sider width={200} style={{ background: colorBgContainer }}>
           <Menu
             mode="inline"
             defaultSelectedKeys={["1"]}
@@ -105,9 +106,8 @@ const Dashboard: React.FC = () => {
               padding: 24,
               margin: 0,
               minHeight: 280,
-              // background: colorBgContainer,
+              background: colorBgContainer,
               borderRadius: borderRadiusLG,
-              backgroundImage: `url("herobg.png")`,
             }}
           >
             {params.panel === "option1" && (
