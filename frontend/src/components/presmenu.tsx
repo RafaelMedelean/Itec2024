@@ -22,41 +22,41 @@ const AppMenu: React.FC = () => {
     navigate("/signup"); // Navigate to /signup
   };
 
+  const handleLoginClick = () => {
+    navigate("/login"); // Navigate to /login
+  };
+
   return (
     <Layout className="layout">
       <Header
         style={{
           position: "fixed",
-          zIndex: 1,
           width: "100%",
           display: "flex",
           alignItems: "center",
-          backgroundColor: "white",
+          backgroundColor: "transparent",
+          zIndex:1
         }}
       >
         <div
-          style={{ marginRight: "30px", fontWeight: "bold", fontSize: "20px" }}
+          style={{ marginRight: "30px", fontWeight: "bold", fontSize: "25px" , color: "white"}}
         >
-          Itec.Monitor
+          ItecMonitor - Monitoring Apps
         </div>
 
         <div
           style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
         >
-          <Dropdown
-            menu={{ items: aboutUsMenuItems }} // Changed from 'overlay' to 'menu'
-            onOpenChange={toggleOpen} // Changed from 'onVisibleChange'
-            open={open} // Changed from 'visible'
-            trigger={["click"]}
-          >
-            <Button type="primary">About Us</Button>
-          </Dropdown>
+          <Button type="primary"
+                  style={{ marginLeft: "10px" }}
+                  onClick={handleLoginClick}>
+                  Login</Button>
           <Button
             type="primary"
             style={{ marginLeft: "10px" }}
             onClick={handleSignUpClick}
           >
-            Get Started
+            Sign Up
           </Button>
         </div>
       </Header>

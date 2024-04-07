@@ -2,5 +2,6 @@
 // don't remove anything if not sure
 
 import ComputersCanvas from "./computers";
+import StarsCanvas from "./stars";
 
-export { ComputersCanvas };
+export { ComputersCanvas, StarsCanvas };

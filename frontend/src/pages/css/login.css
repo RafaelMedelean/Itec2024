@@ -5,5 +5,5 @@
   align-items: center;
   min-height: 100vh;
   min-width: 100vw;
-  background-color: #f0f2f5; /* Optional: background color of the page */
+  background-image: url(herobg.png); /* Optional: background color of the page */
 }
