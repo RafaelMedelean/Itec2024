@@ -8,6 +8,7 @@ import "./css/dashboard.css";
 import AplicationList from "../components/AplicationList";
 import AplicationListUsers from "../components/AplicationListUsers";
 import LinkEndpointForm from "../components/formlink";
+import Notif from "../components/notification";
 import SolveBug from "../components/SolveBug";
 const { Header, Content, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
@@ -35,7 +36,7 @@ const Dashboard: React.FC = () => {
   const items: MenuItem[] = [
     role === true
       ? getItem(<Link to="/dashboard/option1">Add Aplication</Link>, "1")
-      : getItem(<Link to="/dashboard/option1">See your Account</Link>, "1"),
+      : "",
     getItem(<Link to="/dashboard/option2">See List</Link>, "2"),
     role === true
       ? getItem(<Link to="/dashboard/option3">Solve a Bug</Link>, "3")
@@ -59,6 +60,8 @@ const Dashboard: React.FC = () => {
         }
         // console.log  (data.user);
         // console.log("userData" + data.user.isDeveloper);
+        // console.log("userData" + data.user.isDeveloper);
+
         setRole(data.user.isDeveloper);
         // console.log("rol" + role, role === true);
         setIsLoading(false); // User is authenticated
@@ -67,6 +70,8 @@ const Dashboard: React.FC = () => {
         console.error("Authentication check failed:", error);
         navigate("/login");
       });
+      
+    
   }, [navigate]);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -108,7 +113,6 @@ const Dashboard: React.FC = () => {
           >
             {params.panel === "option1" && (
               <div>
-                {" "}
                 <div style={{ marginTop: "30vh" }}>
                   {role === true ? <LinkEndpointForm /> : <p>teapa</p>}
                 </div>
@@ -125,6 +129,7 @@ const Dashboard: React.FC = () => {
               <div> {role === true ? <SolveBug /> : <ReportBug />} </div>
             )}
           </Content>
+          {/* <Notif /> */}
         </Layout>
       </Layout>
     </Layout>

@@ -24,9 +24,10 @@ const checkApplications = async () => {
       let stableEndpoints = 0;
       let downEndpoints = 0;
 
-      for (const endpoint of app.endpoints) {
-       // console.log("Verificare endpoint:", endpoint.endpoint);
-       // console.log("aplicatie="+app.link);
+      // if(app.canChangeStatus===true){
+          for (const endpoint of app.endpoints) {
+         // console.log("Verificare endpoint:", endpoint.endpoint);
+           // console.log("aplicatie="+app.link);
         try {
           const response = await axios.get(app.link+endpoint.endpoint);
           endpoint.history.push({
@@ -46,9 +47,10 @@ const checkApplications = async () => {
         if (endpoint.history.length > 20) {
           endpoint.history = endpoint.history.slice(-20);
         }
-
-        endpoint.stat = evaluateEndpointStatus(endpoint.history);
+      
+        // endpoint.stat = evaluateEndpointStatus(endpoint.history);
   // Evaluarea statusului endpoint-ului și actualizarea array-ului states
+
   const currentState = evaluateEndpointStatus(endpoint.history);
   endpoint.stat = currentState;
   endpoint.states.push(statusToValue(currentState)); // Adăugarea statusului curent la states
@@ -65,12 +67,16 @@ const checkApplications = async () => {
           downEndpoints++;
         }
       }
-
+      if(app.canChangeStatus===true){
       // Setăm statusul aplicației în funcție de majoritatea statusurilor endpoint-urilor
       app.status = stableEndpoints > downEndpoints ? 'Stable' : 'Down';
+  //     console.log("app="+app.canChangeStatus+" "+app.link+" "+app.status);
+  //     // app.status="cartofi";
 
-      await app.save();  // Salvăm aplicația cu modificările făcute
+  // console.log("app Title="+app.canChangeStatus+" "+app.link+" "+app.status);
+  await app.save();  // Salvăm aplicația cu modificările făcute
     }
+  }
   } catch (error) {
     console.error("Eroare la verificarea aplicațiilor:", error);
   }
@@ -85,6 +91,6 @@ const evaluateEndpointStatus = (history) => {
 };
 
 export const startPeriodicChecks = () => {
-  const interval = 20000;  // Intervalul de timp în secunde
+  const interval = 20;  // Intervalul de timp în secunde
   setInterval(checkApplications, interval * 1000);
 };

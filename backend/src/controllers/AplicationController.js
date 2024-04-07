@@ -29,7 +29,8 @@ export const sendAplication = async (req, res) => {
                     link: req.body.link, // Setting the application link from the request body
                     status: 'Stable', // Default status
                     endpoints: [] ,// Assuming no endpoints to start with
-                    bug: false
+                    bug: false,
+                    canChangeStatus:true
                 };
                 
                 // Creating a new application document
@@ -163,8 +164,14 @@ export const sendBugReport = async (req, res) => {
         if (!applicationlink) {
             return res.status(404).json({ message: 'Application not found' });
         }
+
+        if(applicationlink.status==="Stable" ){
+        applicationlink.status="Unstable";
+        }
+        applicationlink.canChangeStatus=false;
 // console.log("app="+applicationlink.link);
         applicationlink.bug = true;
+        console.log("app+"+applicationlink);
         await applicationlink.save();
 
         const developerUsernames = applicationlink.developers;
