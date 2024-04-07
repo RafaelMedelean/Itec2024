@@ -1,5 +1,5 @@
 import Aplication from '../models/aplication.js';
-
+import User from '../models/user.js';
 export const sendAplication = async (req, res) => {
     try {
         if (req.isAuthenticated() && req.user) {
@@ -23,11 +23,14 @@ export const sendAplication = async (req, res) => {
                 }
             } else {
                 // Application doesn't exist, create a new one
+               
                 const newAplicationData = {
                     developers: [req.user.username], // Adding the current user's username to the developers array
                     link: req.body.link, // Setting the application link from the request body
                     status: 'Stable', // Default status
-                    endpoints: [] // Assuming no endpoints to start with
+                    endpoints: [] ,// Assuming no endpoints to start with
+                    bug: false,
+                    canChangeStatus:true
                 };
                 
                 // Creating a new application document
@@ -129,5 +132,77 @@ export const getAplicationall = async (req, res) => {
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ message: error.message });
+    }
+};
+
+export const getAplicationallNoLogin = async (req, res) => {
+    try {
+        console.log('Authenticated username:', req.user.username);
+        // Find all applications where the current user is listed in the developers array
+        const applications = await Aplication.find();
+
+        if (!applications || applications.length === 0) {
+            return res.status(404).json({ message: 'No applications found for the user' });
+        }
+
+        // Send the entire applications including their endpoints
+        res.status(200).json(applications);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: error.message });
+    }
+};
+export const sendBugReport = async (req, res) => {
+    const { application, details } = req.body;
+
+    if (!application || !details) {
+        return res.status(400).json({ message: 'Application link and bug details are required' });
+    }
+
+    try {
+        const applicationlink = await Aplication.findOne({ link: application });
+        if (!applicationlink) {
+            return res.status(404).json({ message: 'Application not found' });
+        }
+
+        if(applicationlink.status==="Stable" ){
+        applicationlink.status="Unstable";
+        }
+        applicationlink.canChangeStatus=false;
+// console.log("app="+applicationlink.link);
+        applicationlink.bug = true;
+        console.log("app+"+applicationlink);
+        await applicationlink.save();
+
+        const developerUsernames = applicationlink.developers;
+        for (const username of developerUsernames) {
+            const user = await User.findOne({ username: username });
+            if (user) {
+                const bugReport = {
+                    bug: applicationlink.link,
+                    status: details
+                };
+                // console.log(user);
+// console.log("bugreport="+bugReport.bug);
+                // Ensure bugToSolve is an array before pushing to it
+
+                if (!Array.isArray(user.bugtosolve)) {
+                    user.bugtosolve = [];
+                }
+                user.bugtosolve.bug=bugReport.bug;
+                // console.log("details"+details);
+                user.bugtosolve.status=bugReport.status;
+                // console.log("bug to solve"+user);
+
+                user.bugtosolve.push(bugReport);
+// console.log("bug to solve"+user.bugtosolve.bug);
+                await user.save();
+            }
+        }
+
+        res.status(200).json({ message: 'Bug report sent successfully and application marked with a bug' });
+    } catch (error) {
+        console.error('Error sending bug report:', error);
+        res.status(500).json({ message: 'Server error while processing bug report' });
     }
 };

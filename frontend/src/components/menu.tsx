@@ -13,7 +13,7 @@ interface Page {
 
 const pages: Page[] = [
   { title: "Home", path: "/home" },
-  // { title: "PresPage", path: "/" },
+  { title: "Dashboard", path: "/dashboard" },
   { title: "ThreeImage", path: "/threeimage" },
   { title: "TwoImage", path: "/twoimage" },
 ];

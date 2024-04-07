@@ -10,6 +10,7 @@ import SignUp from "./pages/signup";
 import ThreeImage from "./pages/threeimage";
 import TwoImage from "./pages/twoimages";
 import { AuthProvider } from "./components/auth";
+import Dashboard from "./pages/Dashboard";
 
 
 const App: React.FC = () => (
@@ -39,6 +40,7 @@ const App: React.FC = () => (
               <Route path="/signup" element={<SignUp />} />
               <Route path="/twoimage" element={<TwoImage />} />
               <Route path="/threeimage" element={<ThreeImage />} />
+              <Route path="/dashboard/:panel?" element={<Dashboard />} />
             </Routes>
           </div>
         </Router>
