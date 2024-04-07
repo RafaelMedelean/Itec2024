@@ -41,7 +41,7 @@ const Home: React.FC = () => {
   return (
     <div>
       < Menu />
-      <section className="relative mx-auto" style={{ backgroundImage: 'url(herobg.png)', width: '100vw', height: '100vh', margin: 0, padding: 0 }}> 
+      <section style={{ backgroundImage: 'url(herobg.png)', width: '100vw', height: '100vh', margin: 0, padding: 0 }}> 
       <ComputersCanvas />
       </section>
     </div>

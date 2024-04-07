@@ -33,6 +33,7 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [role, setRole] = useState("");
+  const whiteText = { color: 'white' };
   const items: MenuItem[] = [
     role === true
       ? getItem(<Link to="/dashboard/option1">Add Aplication</Link>, "1")
@@ -85,11 +86,11 @@ const Dashboard: React.FC = () => {
           mode="horizontal"
           defaultSelectedKeys={["2"]}
           //   items={items1}
-          style={{ flex: 1, minWidth: 0 }}
+          style={{ flex: 1, minWidth: 0, color: 'white' }}
         />
       </Header>
       <Layout>
-        <Sider width={200} style={{ backgroundColor: "gray" }}>
+        <Sider width={200} style={{ backgroundColor: "transparent" }}>
           <Menu
             mode="inline"
             defaultSelectedKeys={["1"]}
@@ -107,7 +108,7 @@ const Dashboard: React.FC = () => {
               minHeight: 280,
               // background: colorBgContainer,
               borderRadius: borderRadiusLG,
-              backgroundImage: `url("herobg.png")`,
+              backgroundImage: `url("/herobg.png")`,
             }}
           >
             {params.panel === "option1" && (
@@ -119,7 +120,7 @@ const Dashboard: React.FC = () => {
             )}
             {params.panel === "option2" && (
               <div>
-                <div style={{ width: "40vw", minHeight: "100vh" }}>
+                <div style={{ width: "40vw", minHeight: "100vh"  }}>
                   {role === true ? <AplicationList /> : <AplicationListUsers />}
                 </div>
               </div>

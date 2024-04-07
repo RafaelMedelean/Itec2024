@@ -47,7 +47,7 @@ const Stars = (props: PointsProps) => {
 // Stars Canvas
 const StarsCanvas = () => {
   return (
-    <div className="w-full h-auto absolute inset-0 z-[-1]" style={{ width: '100vw', height: '100vh', margin: 0, padding: 0}}>
+    <div style={{ width: '100vw', height: '100vh', margin: 0, padding: 0}}>
       {/* Canvas */}
       <Canvas camera={{ position: [0, 0, 1] }}>
         {/* Show stars if not fallback */}
