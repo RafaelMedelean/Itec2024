@@ -1,6 +1,9 @@
 // src/models/User.js
-import { Schema } from "mongoose";
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+const bugSchema = new Schema({
+  bug: { type: String},
+  status: { type: String },
+});
 const endpointSchema = new Schema({
     link: { type: String, required: true },
     stat: { type: String, default: 'Stable' },
@@ -11,7 +14,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, requirred: true },
     email: { type: String, required: true, unique: true },
     isDeveloper: { type: Boolean, required: false, default: false },
-    endpoints: [endpointSchema]
+    endpoints: [endpointSchema],
+    bugtosolve: [bugSchema]
  });
 
 const User = mongoose.model('User', userSchema);

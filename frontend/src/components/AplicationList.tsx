@@ -54,7 +54,11 @@ const AplicationList = () => {
             itemKey="link"
           >
             {(application) => (
-              <List.Item key={application.link}>
+              <List.Item key={application.link} 
+              style={{
+                backgroundColor: application.bug ? 'red' : '#ededed', // Conditionally setting the background color
+                // Other styles can be added here
+              }}>
                 <List.Item.Meta
                   title={<a href={application.link}>{application.link}</a>}
                   description={`Status: ${application.status}`}

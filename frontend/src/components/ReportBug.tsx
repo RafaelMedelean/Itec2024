@@ -42,6 +42,7 @@ const BugReportForm = () => {
     try {
       const response = await fetch(
         "http://localhost:8001/api/aplication/sendBugReport",
+      
         {
           method: "POST",
           credentials: "include",

@@ -11,7 +11,8 @@ const AplicationListUsers = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const userDataUrl = "http://localhost:8001/api/aplication/getAplicationallNoLogin";
+  const userDataUrl =
+    "http://localhost:8001/api/aplication/getAplicationallNoLogin";
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -54,7 +55,13 @@ const AplicationListUsers = () => {
             itemKey="link"
           >
             {(application) => (
-              <List.Item key={application.link}>
+              <List.Item
+                key={application.link}
+                style={{
+                  backgroundColor: application.bug ? "red" : "#ededed", // Conditionally setting the background color
+                  // Other styles can be added here
+                }}
+              >
                 <List.Item.Meta
                   title={<a href={application.link}>{application.link}</a>}
                   description={`Status: ${application.status}`}

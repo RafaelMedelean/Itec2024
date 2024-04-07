@@ -1,10 +1,9 @@
 // src/controllers/userController.js
-import User from '../models/user.js'
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
 import '../config/passportConfig.js';
 import { startPeriodicChecks } from '../config/periodicTask.js';
+import User from '../models/user.js';
 export const signupUser = async (req, res) => {
     try {
         const { username, password, email,isDeveloper} = req.body;
@@ -20,11 +19,16 @@ export const signupUser = async (req, res) => {
 
 
         const hashedPassword = await bcrypt.hash(password, 10);
+        const bugreport={
+          bug:"",
+          status:""
+      }
         const newUser = new User({
             username,
             password: hashedPassword,
             email,
-            isDeveloper:isDeveloper
+            isDeveloper:isDeveloper,
+            bugtosolve: [bugreport]
         });
 
         await newUser.save();
@@ -74,3 +78,11 @@ export const currentUser = async (req, res) => {
       res.status(401).json({ message: 'User is not authenticated' });
   }
 }
+
+export const bugList = async (req, res) => {
+  console.log("Current user: " + "mere");
+  if(req.isAuthenticated()){
+    const user = req.user;
+    console.log("user="+user);
+    res.status(200).json(user.bugtosolve);
+}};

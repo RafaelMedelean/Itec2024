@@ -18,6 +18,7 @@ router.get('/getAplicationall', getAplicationall);
 router.get('/getAplicationallNoLogin', getAplicationallNoLogin);
 router.post('/sendBugReport', sendBugReport);
 
+
 export default router;
 
 // src/controllers/userController.js

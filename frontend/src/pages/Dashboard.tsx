@@ -6,9 +6,9 @@ import ReportBug from "../components/ReportBug";
 import "./css/dashboard.css";
 // import MyAplications from "../components/MyAplications";
 import AplicationList from "../components/AplicationList";
+import AplicationListUsers from "../components/AplicationListUsers";
 import LinkEndpointForm from "../components/formlink";
 import SolveBug from "../components/SolveBug";
-import AplicationListUsers from "../components/AplicationListUsers";
 const { Header, Content, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -33,7 +33,9 @@ const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const items: MenuItem[] = [
-    getItem(<Link to="/dashboard/option1">Add Aplication</Link>, "1"),
+    role === true
+      ? getItem(<Link to="/dashboard/option1">Add Aplication</Link>, "1")
+      : getItem(<Link to="/dashboard/option1">See your Account</Link>, "1"),
     getItem(<Link to="/dashboard/option2">See List</Link>, "2"),
     role === true
       ? getItem(<Link to="/dashboard/option3">Solve a Bug</Link>, "3")
@@ -108,7 +110,7 @@ const Dashboard: React.FC = () => {
               <div>
                 {" "}
                 <div style={{ marginTop: "30vh" }}>
-                  <LinkEndpointForm />
+                  {role === true ? <LinkEndpointForm /> : <p>teapa</p>}
                 </div>
               </div>
             )}
