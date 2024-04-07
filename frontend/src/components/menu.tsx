@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Layout, Menu, Switch, Avatar, MenuProps, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import Logo from "../assets/logo.jpg"; // Adjust the path as necessary
+import Logo from "../assets/pngpng.png"; // Adjust the path as necessary
 
 const { Header } = Layout;
 

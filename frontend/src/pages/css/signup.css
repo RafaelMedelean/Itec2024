@@ -5,7 +5,7 @@
   align-items: center;
   min-height: 100vh;
   min-width: 100vw;
-  background: #f0f2f5; /* Optional background color */
+  background-image: url(herobg.png); /* Optional background color */
 }
 
 .signup-container {
@@ -60,4 +60,31 @@ a {
 
 a:hover {
   color: #1890ff;
+}
+
+.centred-container,
+.centred-container .signup-title,
+.centred-container .signup-form,
+.centred-container .signup-form .ant-form-item-label label,
+.centred-container .signup-form-button,
+.ant-checkbox-wrapper,
+.ant-form-item-control-input-content > a {
+  color: white; /* This will change the text color to white */
+}
+
+/* Placeholder color */
+.centred-container .signup-form .ant-input::placeholder,
+.centred-container .signup-form .ant-input-password input::placeholder {
+  color: black
+}
+
+/* Checkbox color */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: white;
+  border-color: white;
+}
+
+/* Change color of icons in the inputs if necessary */
+.site-form-item-icon {
+  color: white;
 }

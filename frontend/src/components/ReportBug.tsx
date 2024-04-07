@@ -66,7 +66,7 @@ const BugReportForm = () => {
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: "auto", color: 'white' }}>
+    <div style={{ maxWidth: 600, margin: "auto", color: 'white'}}>
       <Form
         form={form}
         name="bugReportForm"

@@ -12,6 +12,7 @@ import LinkEndpointForm from "../components/formlink";
 import Notif from "../components/notification";
 import SolveBug from "../components/SolveBug";
 import AppMenu from "../components/menu";
+import { height, width } from "@mui/system";
 const { Header, Content, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
 function getItem(
@@ -106,6 +107,8 @@ const Dashboard: React.FC = () => {
               padding: 24,
               margin: 0,
               minHeight: 280,
+              height: "100vh",
+              width: "85.4vw",
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
               backgroundImage: `url("/herobg.png")`,
