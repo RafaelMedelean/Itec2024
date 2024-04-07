@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
       })
       .catch((error) => {
         console.error("Authentication check failed:", error);
-        // navigate("/login");
+        navigate("/login");
       });
   }, [navigate]);
   const {
@@ -108,7 +108,7 @@ const Dashboard: React.FC = () => {
               margin: 0,
               minHeight: 280,
               height: "100vh",
-              width: "85.4vw",
+              width: "100vw",
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
               backgroundImage: `url("/herobg.png")`,
