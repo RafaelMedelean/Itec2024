@@ -48,7 +48,7 @@ const SignIn: React.FC = () => {
       const data = await response.json();
       if (response.ok) {
         console.log("Login successful:", data);
-        navigate("/home");
+        navigate("/dashboard");
       } else {
         console.error("Login failed:", data.error);
         // Handle login failure

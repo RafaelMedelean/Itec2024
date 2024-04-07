@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Input, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import useMessage from "./useMessage";
-import './css/FormStyles.css'; // Asigură-te că calea este corectă
 
 const { Option } = Select;
 
