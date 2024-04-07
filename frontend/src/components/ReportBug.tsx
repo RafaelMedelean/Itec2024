@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 const { TextArea } = Input;
-
+const whiteTextStyle = { color: 'white' };
 const BugReportForm = () => {
   const [applications, setApplications] = useState([]);
   const [form] = Form.useForm();
@@ -66,7 +66,7 @@ const BugReportForm = () => {
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: "auto" }}>
+    <div style={{ maxWidth: 600, margin: "auto", color: 'white' }}>
       <Form
         form={form}
         name="bugReportForm"
@@ -77,12 +77,12 @@ const BugReportForm = () => {
       >
         <Form.Item
           name="application"
-          label="Application"
+          label={<span style={whiteTextStyle}>Application</span>}
           rules={[{ required: true, message: "Please select an application!" }]}
         >
-          <Select placeholder="Select an application">
+          <Select placeholder="Select an application" style={whiteTextStyle}>
             {applications.map((app) => (
-              <Option key={app._id} value={app.link}>
+              <Option key={app._id} value={app.link} >
                 {app.link}
               </Option>
             ))}
@@ -91,7 +91,7 @@ const BugReportForm = () => {
 
         <Form.Item
           name="details"
-          label="Bug Details"
+          label={<span style={whiteTextStyle}>Bug Details</span>}
           rules={[
             {
               required: true,
@@ -103,7 +103,7 @@ const BugReportForm = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" style={whiteTextStyle}>
             Send Bug Report
           </Button>
         </Form.Item>

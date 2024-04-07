@@ -3,6 +3,7 @@ import { Layout, Menu, theme } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ReportBug from "../components/ReportBug";
+
 import "./css/dashboard.css";
 // import MyAplications from "../components/MyAplications";
 import AplicationList from "../components/AplicationList";
@@ -10,9 +11,9 @@ import AplicationListUsers from "../components/AplicationListUsers";
 import LinkEndpointForm from "../components/formlink";
 import Notif from "../components/notification";
 import SolveBug from "../components/SolveBug";
+import AppMenu from "../components/menu";
 const { Header, Content, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
-
 function getItem(
   label: React.ReactNode,
   key: React.Key,
@@ -78,21 +79,18 @@ const Dashboard: React.FC = () => {
   } = theme.useToken();
   const params = useParams();
 
-  return (
+  return (<>
+
+    <AppMenu/>
     <Layout style={{ minHeight: "100vh", minWidth: "100vw" }}>
       <Header style={{ display: "flex", alignItems: "center" }}>
+ 
+
         <div className="demo-logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          //   items={items1}
-          style={{ flex: 1, minWidth: 0, color: 'white' }}
-        />
+        < Menu />
       </Header>
       <Layout>
         <Sider width={200} style={{ background: colorBgContainer }}>
-        <Sider width={200} style={{ backgroundColor: "transparent" }}>
           <Menu
             mode="inline"
             defaultSelectedKeys={["1"]}
@@ -135,6 +133,7 @@ const Dashboard: React.FC = () => {
         </Layout>
       </Layout>
     </Layout>
+  </>
   );
 };
 

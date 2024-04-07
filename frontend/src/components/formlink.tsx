@@ -14,13 +14,13 @@ const ApplicationForm = ({ onAddApplication }) => (
     autoComplete="off"
   >
     <Form.Item
-      label="Application"
+      label={<span style={{ color: 'white' }}>Application</span>}
       name="link"
       rules={[
         { required: true, message: "Please input the application name!" },
       ]}
     >
-      <Input />
+      <Input style={{ color: 'white' }} />
     </Form.Item>
     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
       <Button type="primary" htmlType="submit">

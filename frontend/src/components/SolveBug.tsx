@@ -61,7 +61,7 @@ const SolveBug: React.FC = () => {
   };
 
   return (
-    <div>
+    <div style={{ color: 'white' }}>
       <h1>Solve Bugs</h1>
       <List
         itemLayout="horizontal"
@@ -73,17 +73,21 @@ const SolveBug: React.FC = () => {
                 key="solve"
                 type="primary"
                 onClick={() => handleSolveBug(bug.bug)}
+                style={{ color: 'white' }}
               >
                 Solve
               </Button>,
             ]}
+            style={{ color: 'white' }}
           >
             <List.Item.Meta
-              title={`Bug ID: ${bug.bug}`}
-              description={`Description: ${bug.status}`}
+             title={<span style={{ color: 'white' }}>{`Bug ID: ${bug.bug}`}</span>}
+             description={<span style={{ color: 'white' }}>{`Description: ${bug.status}`}</span>}
+             style={{ color: 'white' }}
             />
           </List.Item>
         )}
+        style={{ color: 'white' }}
       />
     </div>
   );
